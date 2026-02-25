@@ -1,0 +1,23 @@
+# Ignore virtual environments
+.venv/
+venv/
+env/
+
+# Ignore heavy data/build folders
+data/
+dist/
+build/
+out/
+
+# Ignore large log files and caches
+*.log
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+.git/
+
+# Ignore specific large files that Gemini doesn't need
+package-lock.json
+# *.csv
+*.jsonl

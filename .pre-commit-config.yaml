@@ -1,0 +1,21 @@
+repos:
+  - repo: local
+    hooks:
+      - id: make-lint
+        name: Linting (Ruff)
+        # This executes the command in your shell
+        entry: make lint
+        language: system
+        # We set this to false because 'make lint' scans the whole directory
+        # regardless of which files changed.
+        pass_filenames: false
+        types: [python]
+        # Stops the commit immediately if this fails
+        fail_fast: true
+
+      - id: make-security
+        name: Security (Bandit)
+        entry: make security
+        language: system
+        pass_filenames: false
+        types: [python]

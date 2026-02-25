@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=80.9.0", "wheel", "build"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-job"
+version = "0.1.0"
+description = "A production-ready Python project blueprint"
+requires-python = ">=3.10"
+dependencies = [
+    "prefect>=3.6.18",
+    "numpy>=2.4.2",
+    "pandas>=3.0.1",
+    "sqlalchemy>=2.0.47",
+    "httpx>=0.28.1",
+    "pydantic>=2.12.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pip-tools>=7.5.3",
+    "build>=1.4.0",
+    "twine>=6.2.0",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "pytest-mock>=3.15.1",
+    "ruff>=0.15.1",
+    "cyclonedx-bom>=7.2.1",
+    "pip-audit>=2.10.0",
+    "pdoc>=16.0.0",
+    "bandit>=1.9.3",
+    "pre-commit>=4.5.1",
+    "pip-check-updates>=0.28.0",
+]
+
+# --- Tool Configurations ---
+
+[tool.setuptools.package-data]
+# Syntax: "package_name" = ["pattern"]
+"my_job" = ["resources/*.json", "resources/*.yaml"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+# Fail build if coverage is below 50%
+addopts = "--cov=my_job --cov-report=term-missing --cov-fail-under=50"
+
+[tool.coverage.run]
+omit = [
+    "src/my_job/config/project_properties.py"
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]  # E=Error, F=Pyflakes, I=Isort (Import sorting)
+
+[tool.bandit]
+exclude_dirs = ["test", ".venv"]
+targets = ["src"]
+
+[tool.bandit.assert_used]
+skips = ["*_test.py", "test_*.py"]
