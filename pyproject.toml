@@ -42,12 +42,13 @@ dev = [
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-# Fail build if coverage is below 50%
-addopts = "--cov=my_job --cov-report=term-missing --cov-fail-under=50"
+# Fail build if coverage is below 80%
+addopts = "--cov=my_job --cov-report=term-missing --cov-fail-under=80"
 
 [tool.coverage.run]
 omit = [
-    "src/my_job/config/project_properties.py"
+    "src/my_job/config/project_properties.py",
+    "src/my_job/config/project_logger.py"
 ]
 
 [tool.ruff]

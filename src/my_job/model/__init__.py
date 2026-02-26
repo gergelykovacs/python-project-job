@@ -1,5 +1,5 @@
 """
-Data models for the application
+Data models for validation or ORM etc.
 """
 
 from .data_model import Data

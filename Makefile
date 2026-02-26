@@ -146,19 +146,6 @@ endif
 
 # --- Docker Local Development ---
 
-# Up: Starts the app locally using docker-compose
-.PHONY: docker-up
-docker-up:
-	@echo "🐳 Starting application..."
-	docker-compose up --build
-
-# Down: Stops the app
-.PHONY: docker-down
-docker-down:
-	docker-compose down
-
-# --- Docker Packaging & Publishing (AWS) ---
-
 # Docker Build: Builds the production image
 .PHONY: docker-build
 docker-build:
@@ -176,6 +163,8 @@ docker-run:
 	sqlite3 -header -column test.db "SELECT * FROM daily_sales;"
 	rm -f test.db
 	@echo "✅ Docker container stopped."
+
+# --- Docker Packaging & Publishing (AWS) ---
 
 # ECR Login: Authenticates Docker with AWS ECR
 # Java Equivalent: docker login via maven plugin

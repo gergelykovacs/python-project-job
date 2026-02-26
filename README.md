@@ -29,10 +29,9 @@ make audit # Run vulnerability audit - not tracked by Git
 make build # Create distributable packages (artefacts)
 
 make docker-build   # Build Docker image
+make docker-run     # Run Docker container
 make aws-login      # Login to the ECR repository
 make docker-publish # Run Docker container
-make docker-up      # Run the Docker container
-make docker-down    # Stop Docker container and clean up
 
 # Set repository access configurations
 # Alternative configuration is provided in the notes section
@@ -49,13 +48,12 @@ make all # In development (lock install upgrade lint test build)
 
 ## Usage
 
-Start the application
+Build and run the job as:
 
 ```shell
-make docker-up
+make docker-build
+make docker-run
 ```
-
-then open `http://localhost:8000/docs` in the browser to see the API schema and try it.
 
 ## Notes
 
@@ -68,23 +66,23 @@ The containerised job can be deployed example to AWS or to Kubernetes.
 
 ### Suggested App Structure
 
-Under `src/my_app/` use
+Under `src/my_job/` use
 
 ```shell
-adapter/    # to access data, IO, remote services, etc.
+adapter/    # for extractors and loaders
 config/     # to load and deal with application configurations e.g., resources
 exception/  # for collection of internal exceptions
 model/      # for domain models
 resources/  # for static data and configuration
-service/    # for the business logic
-main.py     # the application controller and routing
+service/    # for the business logic, the transformers
+main.py     # the job orchestration 
 ```
 
 ### Testing git hooks
 
 Install git pre-commit hook by running `make setup`.
 
-To test it, add the following `bad.py` to [src/my_lib](./src/my_lib).
+To test it, add the following `bad.py` to [src/my_job/](./src/my_job).
 
 ```python
 
@@ -150,7 +148,8 @@ command can be used to publish the artefacts.
 
 ## References
 
-- [FastAPI](https://fastapi.tiangolo.com)
+- [Prefect - Workflow Orchestration](https://docs.prefect.io/v3/get-started)
+- [Prefect - Testing Guide](https://docs.prefect.io/v3/how-to-guides/workflows/test-workflows)
 - [Python](https://www.python.org)
 - [Python - Releases](https://www.python.org/downloads/)
 - [Python 3.14 - Documentation](https://docs.python.org/3.14/)

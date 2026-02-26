@@ -1,7 +1,7 @@
 """
-Service (business logic) layer for the application
+Service (business logic) layer for data transformations.
 """
 
-from .calculator import Calculator
+from .data_transformer import DataTransformer
 
-__all__ = ["Calculator"]
+__all__ = ["DataTransformer"]

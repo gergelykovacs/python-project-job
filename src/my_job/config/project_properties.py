@@ -7,7 +7,7 @@ class ProjectProperties:
 
     def name(self) -> str:
         """Returns the configured name."""
-        resource_path = files("my_app.resources").joinpath("project_properties.json")
+        resource_path = files("my_job.resources").joinpath("project_properties.json")
         json_content = resource_path.read_text(encoding="utf-8")
         config = json.loads(json_content)
         return config.get("name")

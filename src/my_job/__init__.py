@@ -1,3 +1,3 @@
 """
-Application entry point
+Job entry point
 """
