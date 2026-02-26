@@ -3,14 +3,14 @@ from unittest.mock import MagicMock, patch
 import pandas as pd
 import pytest
 
-from my_job.adapter.database_witer import DatabaseWriter
+from my_job.adapter.database_writer import DatabaseWriter
 
 
 class TestDatabaseWriter:
     @pytest.fixture
     def writer(self):
         # Mock create_engine to avoid actual DB connection during init
-        with patch("my_job.adapter.database_witer.create_engine") as mock_engine:
+        with patch("my_job.adapter.database_writer.create_engine") as mock_engine:
             writer = DatabaseWriter()
             writer._engine = mock_engine.return_value
             return writer
@@ -48,7 +48,7 @@ class TestDatabaseWriter:
         # Test that __init__ uses the DB_CONN environment variable
         test_conn_str = "sqlite:///test_db.sqlite"
         with patch.dict("os.environ", {"DB_CONN": test_conn_str}):
-            with patch("my_job.adapter.database_witer.create_engine") as mock_create_engine:
+            with patch("my_job.adapter.database_writer.create_engine") as mock_create_engine:
                 DatabaseWriter()
                 mock_create_engine.assert_called_once_with(test_conn_str)
 
@@ -56,6 +56,6 @@ class TestDatabaseWriter:
         # Test that __init__ uses the default connection string if env var is not set
         # We need to ensure DB_CONN is not set
         with patch.dict("os.environ", {}, clear=True):
-            with patch("my_job.adapter.database_witer.create_engine") as mock_create_engine:
+            with patch("my_job.adapter.database_writer.create_engine") as mock_create_engine:
                 DatabaseWriter()
                 mock_create_engine.assert_called_once_with("sqlite:///production.db")

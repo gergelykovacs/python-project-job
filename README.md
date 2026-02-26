@@ -6,45 +6,42 @@ Python Project Blueprint
 
 Check the [Makefile](./Makefile) for automation as the initial step, it defines all project commands.
 
-Short summary of commands in a desired order of use.
+### Make Commands
+
+| Make Command          | Description                                                                             |
+|:----------------------|:----------------------------------------------------------------------------------------|
+| `make venv`           | Creates a virtual environment in `.venv`.                                               |
+| `make lock`           | Generates `requirements.txt` from `pyproject.toml` using `pip-compile`.                 |
+| `make upgrade`        | Updates all packages in `requirements.txt` to the latest allowed versions.              |
+| `make install`        | Syncs the environment with locked dependencies and installs the app in editable mode.   |
+| `make setup`          | Installs dependencies and sets up git hooks (runs `install` and `pre-commit install`).  |
+| `make outdated`       | Checks for newer versions of dependencies using `pip-check-updates`.                    |
+| `make pip-upgrade`    | Upgrades `pip` to its latest version.                                                   |
+| `make lint`           | Checks code style using `ruff` without modifying files.                                 |
+| `make format`         | Automatically fixes code style issues using `ruff`.                                     |
+| `make security`       | Runs `bandit` to check for security vulnerabilities.                                    |
+| `make test`           | Runs unit and integration tests using `pytest` (also runs `security`).                  |
+| `make sbom`           | Generates a Software Bill of Materials (SBOM) in `sbom.json`.                           |
+| `make audit`          | Generates a security audit report in `audit.json`.                                      |
+| `make build`          | Creates distribution files (Wheel & Tarball) in `dist/`.                                |
+| `make publish`        | Uploads artifacts to the repository using `twine`.                                      |
+| `make docker-build`   | Builds the Docker image for the application.                                            |
+| `make docker-run`     | Runs the Docker container with mounted volumes for testing.                             |
+| `make aws-login`      | Authenticates Docker with AWS ECR.                                                      |
+| `make docker-publish` | Tags and pushes the Docker image to AWS ECR.                                            |
+| `make docs`           | Generates documentation from docstrings into the `docs/` directory.                     |
+| `make clean`          | Removes build artifacts, caches, and generated files.                                   |
+| `make all`            | Runs the full development cycle: `lock`, `install`, `upgrade`, `lint`, `test`, `build`. |
+
+The `make publish` require 
 
 ```shell
-make venv # Create virtual environment (first step)
-
-make install # Install dependencies (second step)
-make setup   # Install dependencies and git hooks (runs install)
-
-mske lock     # Lock dependencies
-make upgrade  # Upgrade dependencies
-make outdated # Check for outdated dependencies
-
-make lint     # Check the code style
-make format   # Fix style issues
-make security # Check for security issues
-make test     # Run tests
-
-make sbom  # Generate Software Bill of Materials - run it when dependencies change
-make audit # Run vulnerability audit - not tracked by Git
-
-make build # Create distributable packages (artefacts)
-
-make docker-build   # Build Docker image
-make docker-run     # Run Docker container
-make aws-login      # Login to the ECR repository
-make docker-publish # Run Docker container
-
-# Set repository access configurations
-# Alternative configuration is provided in the notes section
 export TWINE_USERNAME=your_ldap_user
 export TWINE_PASSWORD=your_ldap_password
 export TWINE_REPOSITORY_URL="https://nexus.mycompany.com/repository/pypi-internal/"
-make publish # Publish the artefacts
-
-make clean # Remove all generated files
-make docs  # Generate documentation - not tracked by Git
-
-make all # In development (lock install upgrade lint test build)
 ```
+
+environment variables.
 
 ## Usage
 
