@@ -160,7 +160,7 @@ orjson==3.11.7
     # via prefect
 packaging==25.0
     # via prefect
-pandas==3.0.1
+pandas==2.3.3
     # via my-job (pyproject.toml)
 pathspec==1.0.4
     # via prefect
@@ -211,6 +211,7 @@ pytz==2025.2
     # via
     #   croniter
     #   dateparser
+    #   pandas
     #   prefect
 pyyaml==6.0.3
     # via
@@ -298,6 +299,8 @@ typing-inspection==0.4.2
     #   fastapi
     #   pydantic
     #   pydantic-settings
+tzdata==2025.3
+    # via pandas
 tzlocal==5.3.1
     # via dateparser
 urllib3==2.6.3
