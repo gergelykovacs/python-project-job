@@ -2,6 +2,8 @@
 
 Python Project Blueprint
 
+[![CI](https://github.com/gergelykovacs/python-project-job/actions/workflows/ci.yml/badge.svg)](https://github.com/gergelykovacs/python-project-job/actions/workflows/ci.yml)
+
 ## Development
 
 Check the [Makefile](./Makefile) for automation as the initial step, it defines all project commands.
