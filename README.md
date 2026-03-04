@@ -10,30 +10,31 @@ Check the [Makefile](./Makefile) for automation as the initial step, it defines 
 
 ### Make Commands
 
-| Make Command          | Description                                                                             |
-|:----------------------|:----------------------------------------------------------------------------------------|
-| `make venv`           | Creates a virtual environment in `.venv`.                                               |
-| `make lock`           | Generates `requirements.txt` from `pyproject.toml` using `pip-compile`.                 |
-| `make upgrade`        | Updates all packages in `requirements.txt` to the latest allowed versions.              |
-| `make install`        | Syncs the environment with locked dependencies and installs the app in editable mode.   |
-| `make setup`          | Installs dependencies and sets up git hooks (runs `install` and `pre-commit install`).  |
-| `make outdated`       | Checks for newer versions of dependencies using `pip-check-updates`.                    |
-| `make pip-upgrade`    | Upgrades `pip` to its latest version.                                                   |
-| `make lint`           | Checks code style using `ruff` without modifying files.                                 |
-| `make format`         | Automatically fixes code style issues using `ruff`.                                     |
-| `make security`       | Runs `bandit` to check for security vulnerabilities.                                    |
-| `make test`           | Runs unit and integration tests using `pytest` (also runs `security`).                  |
-| `make sbom`           | Generates a Software Bill of Materials (SBOM) in `sbom.json`.                           |
-| `make audit`          | Generates a security audit report in `audit.json`.                                      |
-| `make build`          | Creates distribution files (Wheel & Tarball) in `dist/`.                                |
-| `make publish`        | Uploads artifacts to the repository using `twine`.                                      |
-| `make docker-build`   | Builds the Docker image for the application.                                            |
-| `make docker-run`     | Runs the Docker container with mounted volumes for testing.                             |
-| `make aws-login`      | Authenticates Docker with AWS ECR.                                                      |
-| `make docker-publish` | Tags and pushes the Docker image to AWS ECR.                                            |
-| `make docs`           | Generates documentation from docstrings into the `docs/` directory.                     |
-| `make clean`          | Removes build artifacts, caches, and generated files.                                   |
-| `make all`            | Runs the full development cycle: `lock`, `install`, `upgrade`, `lint`, `test`, `build`. |
+| Make Command          | Description                                                                              |
+|:----------------------|:-----------------------------------------------------------------------------------------|
+| `make venv`           | Creates a virtual environment in `.venv`.                                                |
+| `make lock`           | Generates `requirements.txt` from `pyproject.toml` using `pip-compile`.                  |
+| `make upgrade`        | Updates all packages in `requirements.txt` to the latest allowed versions.               |
+| `make install`        | Syncs the environment with locked dependencies and installs the app in editable mode.    |
+| `make setup`          | Installs dependencies and sets up git hooks (runs `install` and `pre-commit install`).   |
+| `make outdated`       | Checks for newer versions of dependencies using `pip-check-updates`.                     |
+| `make compatibility`  | Checks each dependencies for python version compatibility.                               |
+| `make pip-upgrade`    | Upgrades `pip` to its latest version.                                                    |
+| `make lint`           | Checks code style using `ruff` without modifying files.                                  |
+| `make format`         | Automatically fixes code style issues using `ruff`.                                      |
+| `make security`       | Runs `bandit` to check for security vulnerabilities.                                     |
+| `make test`           | Runs unit and integration tests using `pytest` (also runs `security`).                   |
+| `make sbom`           | Generates a Software Bill of Materials (SBOM) in `sbom.json`.                            |
+| `make audit`          | Generates a security audit report in `audit.json`.                                       |
+| `make build`          | Creates distribution files (Wheel & Tarball) in `dist/`.                                 |
+| `make publish`        | Uploads artifacts to the repository using `twine`.                                       |
+| `make docker-build`   | Builds the Docker image for the application.                                             |
+| `make docker-run`     | Runs the Docker container with mounted volumes for testing.                              |
+| `make aws-login`      | Authenticates Docker with AWS ECR.                                                       |
+| `make docker-publish` | Tags and pushes the Docker image to AWS ECR.                                             |
+| `make docs`           | Generates documentation from docstrings into the `docs/` directory.                      |
+| `make clean`          | Removes build artifacts, caches, and generated files.                                    |
+| `make all`            | Runs the full development cycle: `lock`, `install`, `upgrade`, `lint`, `test`, `build`.  |
 
 The `make publish` require 
 
@@ -44,6 +45,9 @@ export TWINE_REPOSITORY_URL="https://nexus.mycompany.com/repository/pypi-interna
 ```
 
 environment variables.
+
+The `make compatibility` accepts a parameter example `make compatibility py_version=3.9` to mark dependencies 
+that are not compatible with the given target version.
 
 ## Usage
 

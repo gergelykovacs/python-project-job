@@ -68,6 +68,17 @@ outdated:
 	$(PCU) pyproject.toml -t latest --extra dev --fail_on_update
 	@echo "✅ Dependency outdated check passed."
 
+# compatibility: Checks each dependencies for python version compatibility
+.PHONY: compatibility
+compatibility:
+	@echo "🔍 Checking dependencies for python version compatibility..."
+ifdef py_version
+	$(PYTHON) check_compatibility.py $(py_version)
+else
+	$(PYTHON) check_compatibility.py
+endif
+	@echo "✅ Compatibility check done."
+
 # PIP Upgrade: upgrade PIP to its latest version
 .PHONY: pip-upgrade
 pip-upgrade:
