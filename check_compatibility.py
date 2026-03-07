@@ -1,8 +1,8 @@
-import json
 import re
 import sys
-import urllib.request
 from typing import List, Tuple
+
+import httpx
 
 
 def parse_dependencies(file_path: str) -> List[Tuple[str, str]]:
@@ -41,6 +41,13 @@ def extract_deps_from_string(raw_string: str) -> List[Tuple[str, str]]:
     return deps
 
 
+def get_requires_python_data(url: str) -> str:
+    response = httpx.get(url)
+    response.raise_for_status()
+    data = response.json()
+    return data["info"].get("requires_python") or "Unknown"
+
+
 def get_python_requires(package: str, version: str) -> str:
     if version == "latest":
         url = f"https://pypi.org/pypi/{package}/json"
@@ -48,16 +55,12 @@ def get_python_requires(package: str, version: str) -> str:
         url = f"https://pypi.org/pypi/{package}/{version}/json"
 
     try:
-        with urllib.request.urlopen(url) as response:  # nosec B310
-            data = json.loads(response.read().decode())
-            return data["info"].get("requires_python") or "Unknown"
+        return get_requires_python_data(url)
     except Exception:
         # Fallback to latest if specific version fails
         try:
             url = f"https://pypi.org/pypi/{package}/json"
-            with urllib.request.urlopen(url) as response:  # nosec B310
-                data = json.loads(response.read().decode())
-                return data["info"].get("requires_python") or "Unknown"
+            return get_requires_python_data(url)
         except Exception as e:
             return f"Error: {e}"
 
