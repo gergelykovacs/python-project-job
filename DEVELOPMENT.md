@@ -31,6 +31,11 @@ This will install the project in editable mode, install dev tools, and set up gi
   ```bash
   make upgrade
   ```
+- **Verify compatibility of dependencies**: Checks each of the dependencies for python version compatibility, and marks dependencies that are not compatible with the given target version.
+  ```bash
+  # adjust py_version=3.xy as needed
+  make compatibility py_version=3.10
+  ```
 - **Update SBOM**: Generate a Software Bill of Materials (SBOM) in `sbom.json` when dependencies are updated (tracked).
   ```bash
   make sbom
