@@ -13,7 +13,7 @@
 Create a virtual environment and install dependencies:
 
 ```bash
-make venv
+make venv && source .venv/bin/activate
 make setup
 ```
 
