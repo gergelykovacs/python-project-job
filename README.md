@@ -6,6 +6,8 @@ Python Project Blueprint
 
 ## Development
 
+Please read the [DEVELOPMENT.md](./DEVELOPMENT.md) for development instructions.
+
 Check the [Makefile](./Makefile) for automation as the initial step, it defines all project commands.
 
 ### Make Commands

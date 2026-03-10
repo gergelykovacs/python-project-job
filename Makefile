@@ -29,8 +29,8 @@ all: lock install upgrade lint test build
 venv:
 	@echo "🛠 Creating virtual environment..."
 	$(SYSTEM_PYTHON) -m venv .venv
-	@. ./.venv/bin/activate
-	@echo "✅ virtual environment created."
+	@echo "✅ virtual environment created. Activate it with:"
+	@echo "   source .venv/bin/activate"
 
 # Lock: Generates requirements.txt from pyproject.toml
 .PHONY: lock
